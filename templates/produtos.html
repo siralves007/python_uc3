@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Produtos</h1>
+
+<!-- Formulário -->
+<form action="/produtos/criar/" method="post" class="mb-4">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="text" name="nome" class="form-control" placeholder="Nome do produto" required>
+    </div>
+    <div class="form-group">
+        <input type="number" step="0.01" name="preco" class="form-control" placeholder="Preço" required>
+    </div>
+    <button type="submit" class="btn btn-success">Cadastrar Produto</button>
+</form>
+
+<!-- Lista -->
+<h2>Lista de Produtos</h2>
+{% if produtos %}
+    <ul class="list-group">
+    {% for produto in produtos %}
+        <li class="list-group-item">{{ produto.nome }} - R$ {{ produto.preco }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum produto cadastrado.</p>
+{% endif %}
+
+<a href="/" class="btn btn-secondary mt-3">Voltar para Home</a>
+{% endblock %}

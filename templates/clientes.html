@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Clientes</h1>
+
+<!-- Formulário -->
+<form action="/clientes/criar/" method="post" class="mb-4">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="text" name="nome" class="form-control" placeholder="Nome" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="telefone" class="form-control" placeholder="Telefone">
+    </div>
+    <div class="form-group">
+        <textarea name="endereco" class="form-control" placeholder="Endereço"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Cadastrar Cliente</button>
+</form>
+
+<!-- Lista -->
+<h2>Lista de Clientes</h2>
+{% if clientes %}
+    <ul class="list-group">
+    {% for cliente in clientes %}
+        <li class="list-group-item">
+            <strong>{{ cliente.nome }}</strong><br>
+            Email: {{ cliente.email }}<br>
+            Telefone: {{ cliente.telefone|default:"Não informado" }}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum cliente cadastrado.</p>
+{% endif %}
+
+<a href="/" class="btn btn-secondary mt-3">Voltar para Home</a>
+{% endblock %}
